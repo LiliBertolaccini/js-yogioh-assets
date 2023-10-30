@@ -209,28 +209,32 @@ async function drawSelectedCard(index) {
 
       // primeiro pensa no que quer, na loa logica, depis vc faz. 
       // se vai gerar uma carta aleátoria, ela precisa de imagem.
-async function drawCards(cardNumbers, fieldSide) {
-  //cria cartas p/jogador
-  for (let i = 0; i < cardNumbers; i++) {
-    
-    const cardId = await getRandomCardId();
-    const cardImage = await createCardImage(cardId, fieldSide);
-
-    // Adicione uma classe oculta às cartas
-    cardImage.classList.add("hidden-card");
-
-    document.getElementById(fieldSide).appendChild(cardImage);
-
-    // evento de mouseover para exibir a carta
-    cardImage.addEventListener("mouseover", function() {
-      this.classList.remove("hidden-card");
-    });
-    // evento de mouseout para ocultar a carta
-    cardImage.addEventListener("click", function() {
-      setCardsField(this.getAttribute("data-id"), fieldSide);
-    });
-  }
-}
+      async function drawCards(cardNumbers, fieldSide) {
+        for (let i = 0; i < cardNumbers; i++) {
+          const cardId = await getRandomCardId();
+          const cardImage = await createCardImage(cardId, fieldSide);
+      
+          if (fieldSide === playerSides.player1) {
+            // Adicione eventos apenas para o jogador
+            cardImage.addEventListener("mouseover", function() {
+              this.classList.remove("hidden-card");
+            });
+      
+            cardImage.addEventListener("mouseout", function() {
+              this.classList.add("hidden-card");
+            });
+      
+            cardImage.addEventListener("click", function() {
+              setCardsField(this.getAttribute("data-id"), fieldSide);
+            });
+          } else {
+            // Adicione classe "hidden-card" para cartas do computador
+            cardImage.classList.add("hidden-card");
+          }
+      
+          document.getElementById(fieldSide).appendChild(cardImage);
+        }
+      }
 
 
 
