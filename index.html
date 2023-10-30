@@ -16,12 +16,19 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
   
+  <!--favicon-->
+  <link rel="shortcut icon" href="./src/assets/favicon/Favicon.ico" type="image/x-icon">
+
   <!--main stayle-->
   <link rel="stylesheet" href="./src/styles/main.css">
 
   <title>Yu-Gi-Oh Jo-ken-po Edition</title>
 </head>
 <body>
+
+  <audio id="bgm" loop>
+    <source src="./src/assets/audios/egyptian_duel.mp3" type="audio/mp3" />
+  </audio>
 
   <!--div.bg-video+div.container>(div.container__left+div.container__right)-->
 
@@ -79,11 +86,11 @@
               onclick="resetDuel()"
               >Next Duel</button>
             </div>
-
-        </div>
-
+          </div>
+          
           <div class="card-box framed" id="player-cards"> </div>
-
+          
+          <button id="audio-toggle" class="rpgui-button">Toggle Audio</button>
         
       </div>
     </div>

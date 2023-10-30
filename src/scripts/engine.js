@@ -106,20 +106,26 @@ async function getRandomCardId() {
       return cardImage;
     }
     
-    async function setCardsField(cardId, fieldSide) {
+    async function setCardsField(cardId) {
       // Remova todas as cartas antes
       await removeAllCardsImage();
     
       // Obtenha o ID da carta do computador
       let computerCardId = await getRandomCardId();
     
+      state.fieldCards.player.style.display = "block";
+      state.fieldCards.computer.style.display = "block";
+      
       // Obtenha as imagens das cartas
       const cardImagePlayer = cardData[cardId].img;
       const cardImageComputer = cardData[computerCardId].img;
-    
+
       // Exiba as imagens das cartas no campo
       state.fieldCards.player.src = cardImagePlayer;
       state.fieldCards.computer.src = cardImageComputer;
+
+      state.cardSprites.name = "";
+      state.cardSprites.type = "";
     
       // Verifique o vencedor do duelo e atualize a pontuação
       let duelResult = await checkDuelResult(cardId, computerCardId);
@@ -258,8 +264,26 @@ async function playAudio(status) {
 
 //state.cardSprites.name <- para recuperar esse carinha na função inicial usando atraves de dot notation, para acessar o objeto no estado.
 function init() {
+  state.fieldCards.player.style.display = "none";
+  state.fieldCards.computer.style.display = "none";
   drawCards(5, playerSides.player1);
   drawCards(5, playerSides.computer);
+
+  const bgm = document.getElementById("bgm");
+  const audioToggle = document.getElementById("audio-toggle");
+let isAudioOn = true;
+
+audioToggle.addEventListener("click", () => {
+  if (isAudioOn) {
+    bgm.pause();
+    isAudioOn = false;
+    audioToggle.innerText = "Audio On";
+  } else {
+    bgm.play();
+    isAudioOn = true;
+    audioToggle.innerText = "Audio Off";
+  }
+});
 }
 
 init()
